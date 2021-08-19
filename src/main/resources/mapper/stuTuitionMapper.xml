@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsapi.niceschoolapi.mapper.StuTuitionMapper">
+
+    <!-- 查询所有学生学费缴纳情况 -->
+    <select id="listTuitions" resultType="com.nsapi.niceschoolapi.entity.TuitionDB">
+        select *
+        from tuition
+    </select>
+
+    <!-- 查询单个学生学费缴纳情况 -->
+    <select id="getTuition" resultType="com.nsapi.niceschoolapi.entity.TuitionDB" parameterType="map">
+        select *
+        from tuition
+        where sid = #{sid}
+    </select>
+
+    <!--  新增一条学费记录，设为未缴纳  -->
+    <insert id="addTuition" parameterType="com.nsapi.niceschoolapi.entity.TuitionDB">
+        insert into tuition(sid, status)
+        VALUES (#{sid}, #{status})
+    </insert>
+
+    <!--  更新学费缴纳情况  -->
+    <update id="updateTuition" parameterType="java.lang.Integer">
+        update tuition
+        set status=1
+        where sid = #{sid};
+    </update>
+
+</mapper>
