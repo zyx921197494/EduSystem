@@ -9,7 +9,7 @@
 
 <body>
 
-<script src="static/js/jquery-3.1.1.js"></script>
+<!--<script src="static/js/jquery-3.1.1.js"></script>-->
 <script type="text/javascript" th:src="@{/static/js/jquery-3.1.1.js}"></script>
 <br>
 <fieldset class="layui-elem-field">
@@ -30,6 +30,43 @@
     </div>
 </fieldset>
 
+
+<form class="layui-form" action="payServlet" method="post">
+    <!--    <label class="layui-form-label">缴纳款项:</label>-->
+    <!--    <input id="subject" type="text" name="subject" value="学费">-->
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">缴纳款项</label>
+            <div class="layui-input-block">
+                <input class="layui-input" id="subject" type="text" name="subject" value="学费">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">应缴费用</label>
+            <div class="layui-input-block">
+                <input class="layui-input" id="total_amount" type="text" name="total_amount" value="10000">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <div class="layui-input-block">
+                <input class="layui-btn" type="submit" value="点击缴费">
+            </div>
+        </div>
+    </div>
+
+
+    <!--    <label class="layui-form-label">应缴费用：</label>-->
+    <!--    <input id="total_amount" type="text" name="total_amount" value="10000">-->
+    <!--    <input type="submit" value="点击缴费">-->
+
+</form>
 
 <table class="layui-hide" id="qrcode" lay-filter="test"></table>
 
@@ -56,62 +93,48 @@
                         <td style="text-align: center">${s}</td>
                     </tr>`
                 );
-                if (data.status===0){
-                    $("#content").append(
-                    `<tr>
-                        <td style="text-align: center">扫描二维码缴纳学费</td>
-                        <td style="text-align: center" colspan="2">图片</td>
-                    </tr>`
-                    );
-                }
+                // if (data.status === 0) {
+                //     $("#content").append(
+                //         `<tr>
+                //         <td style="text-align: center">扫描二维码缴纳学费</td>
+                //         <td style="text-align: center" colspan="2">图片</td>
+                //     </tr>`
+                //     );
+                // }
             }
         })
     })
 
-
-    // layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'jquery', 'form'], function () {
-    //     var laydate = layui.laydate,//日期
-    //         laypage = layui.laypage, //分页
-    //         layer = layui.layer, //弹层
-    //         table = layui.table, //表格
-    //         carousel = layui.carousel, //轮播
-    //         upload = layui.upload, //上传
-    //         element = layui.element, //元素操作
-    //         slider = layui.slider,//滑块
-    //         form = layui.form;
-    //     //执行一个 table 实例
-    //     table.render({
-    //         elem: '#demo'
-    //         , height: 550
-    //         , url: 'tuition/listTuitions' //数据接口
-    //         , title: '成绩查询'
-    //         , cols: [
-    //             [ //表头
-    //                 {field: 'tid', title: '记录ID'}
-    //                 , {field: 'sid', title: '学号'}
-    //                 , {field: 'status', title: '状态'}
-    //             ]
-    //         ]
-    //         , id: 'selGrade'
-    //     });
-
-    // //  按学期查询成绩
-    // var $ = layui.$;
-    // $('#selBtn').on('click', function () {
-    //     //获取输入框
-    //     var stime = $('#stime');
-    //     //执行重载
-    //     table.reload('selGrade', {
-    //         page: {
-    //             curr: 1 //重新从第 1 页开始selTeacher
-    //         }
-    //         , where: {
-    //             stime: stime.val()
-    //         }
-    //     });
-    // });
-
-    // });
+    function postorder() {
+        var outTradeNo = document.getElementById("ordernum").value;
+        var subject = document.getElementById("subject").value;
+        var totalAmount = document.getElementById("total").value;
+        var body = document.getElementById("descp").value;
+        var sendData = JSON.stringify({
+            'outTradeNo': outTradeNo,
+            'subject': subject,
+            'totalAmount': totalAmount,
+            'body': body
+        });
+        alert(sendData);
+        $.ajax({
+            type: "GET",
+            url: "/tuition/aliPay?outTradeNo=" + outTradeNo + "&subject=" + subject + "&totalAmount=" + totalAmount + "&body=" + body,
+            // data: sendData,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                // if (data.status === "0") {
+                //     alert("data.msg" + data.msg);
+                // } else {
+                //     alert("预约成功，返回主页");
+                //     $(location).attr('href', "studentIndex.html");
+                // }
+                alert("data");
+                console.log(data);
+            }
+        })
+    }
 
 
 </script>

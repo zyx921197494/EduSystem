@@ -2,11 +2,10 @@ package com.nsapi.niceschoolapi.controller;
 
 import com.nsapi.niceschoolapi.entity.*;
 import com.nsapi.niceschoolapi.service.AddStudentService;
+import com.nsapi.niceschoolapi.service.StuTuitionService;
 import com.nsapi.niceschoolapi.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,38 +13,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
-//使用它标记的类就是一个SpringMVC Controller 对象。分发处理器将会扫描使用了该注解的类的方法
 public class AddStudentController {
-    @Autowired  //  自动注入
+
+    @Autowired
     private StudentService studentService;
+
     @Autowired
     private AddStudentService addStudentService;
 
+    @Autowired
+    private StuTuitionService stuTuitionService;
+
     @RequestMapping("/addStudentPage")
-    public String selPolitics(Model model){
+    public String selPolitics(Model model) {
         //  查询政治面貌表
         List<PoliticsTypeDB> stupol = studentService.selPolitics();
-        model.addAttribute("stupol",stupol);
+        model.addAttribute("stupol", stupol);
         return "view/student/addStudent";
     }
 
     //  添加学生
-    @RequestMapping("addStudent") //   用来处理请求地址映射的注解
-    @ResponseBody   // 通常用来返回JSON数据给客户端
-    public LayuiResult<StudentDB> addStudent(StudentVO studentVO, String birthday, String tertime) throws Exception{
-        LayuiResult<StudentDB> result= new LayuiResult<>();
+    @RequestMapping("addStudent")
+    @ResponseBody
+    public LayuiResult<StudentDB> addStudent(StudentVO studentVO, String birthday, String tertime) throws Exception {
+        LayuiResult<StudentDB> result = new LayuiResult<>();
         //  将接收到的时间进行类型转换
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date1=format.parse(birthday);
-        Date date2=format.parse(tertime);
+        Date date1 = format.parse(birthday);
+        Date date2 = format.parse(tertime);
         studentVO.setSbirthday(date1);
         studentVO.setEntertime(date2);
         //  判断该年份是否已存在学生
         Integer year = addStudentService.selectStuYear(studentVO.getClassid());
-        if(year !=0 ){
+        if (year != 0) {
             //  若该年份学生为空时 则添加一条分割线
             Integer fenge = addStudentService.stuSegmentation(studentVO.getClassid());
         }
@@ -63,9 +65,9 @@ public class AddStudentController {
         Integer mid = studentVO.getMid();
         //  根据学生专业查询该专业开设的必修课程
         List<CourseDB> selCourse = addStudentService.selCourse(mid);
-        for(CourseDB cou : selCourse){
+        for ( CourseDB cou : selCourse ) {
             //  将学生id以及必修课程的id添加至学生选课表
-            Integer addStuCourse = addStudentService.addStuCourse(sid,cou.getCid());
+            Integer addStuCourse = addStudentService.addStuCourse(sid, cou.getCid());
             System.out.println(addStuCourse);
         }
 
@@ -84,6 +86,7 @@ public class AddStudentController {
         String id = addStudentService.selectRole();
         result.setData(stu);
         result.setMsg(id);
+        stuTuitionService.addTuition(new TuitionDB(null, sid, 0));
         return result;
 
     }

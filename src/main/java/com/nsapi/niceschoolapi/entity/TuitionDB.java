@@ -9,6 +9,12 @@ public class TuitionDB implements Serializable {
     private Integer sid; //学生编号
     private Integer status; //状态：表示是否已缴纳学费，0未缴纳，1已缴纳
 
+    public TuitionDB(Integer tid, Integer sid, Integer status) {
+        this.tid = tid;
+        this.sid = sid;
+        this.status = status;
+    }
+
     public Integer getTid() {
         return tid;
     }
@@ -32,4 +38,6 @@ public class TuitionDB implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+
 }
