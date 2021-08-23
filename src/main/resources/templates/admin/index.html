@@ -71,6 +71,13 @@
                                 class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
                     </li>
                 </shiro:user>
+
+                <a href="javascript:;" class="admin-header-user">
+                    <img src="https://i.loli.net/2021/08/23/vNpl6CiF39qGXzH.jpg"
+                         style="width: 30px;height: 30px;border-radius: 50%"
+                         alt="头像"/>
+                </a>
+
                 <li class="layui-nav-item" mobile>
                     <a th:href="@{/systemLogout}" class="signOut"><i class="iconfont icon-loginout"></i> 退出</a>
                 </li>
@@ -82,6 +89,7 @@
                         </cite>
                         <span class="layui-nav-more"></span>
                     </a>
+
 
                     <dl class="layui-nav-child">
                         <shiro:user>

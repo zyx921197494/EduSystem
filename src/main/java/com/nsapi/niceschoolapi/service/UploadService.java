@@ -7,5 +7,5 @@ import java.security.NoSuchAlgorithmException;
 
 public interface UploadService {
 
-    public String upload(MultipartFile file) throws IOException, NoSuchAlgorithmException;
+    String upload(MultipartFile file) throws IOException, NoSuchAlgorithmException;
 }
