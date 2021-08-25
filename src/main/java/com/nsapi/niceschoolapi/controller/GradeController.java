@@ -2,8 +2,6 @@ package com.nsapi.niceschoolapi.controller;
 
 import com.nsapi.niceschoolapi.common.config.MySysUser;
 import com.nsapi.niceschoolapi.entity.LayuiResult;
-import com.nsapi.niceschoolapi.entity.TchExamDB;
-import com.nsapi.niceschoolapi.entity.TeacherDB;
 import com.nsapi.niceschoolapi.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,5 @@
 package com.nsapi.niceschoolapi.service.impl;
 
-import com.nsapi.niceschoolapi.entity.TchExamDB;
 import com.nsapi.niceschoolapi.entity.TeacherDB;
 import com.nsapi.niceschoolapi.mapper.GradeMapper;
 import com.nsapi.niceschoolapi.service.GradeService;

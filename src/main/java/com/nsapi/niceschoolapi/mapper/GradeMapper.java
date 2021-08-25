@@ -1,6 +1,5 @@
 package com.nsapi.niceschoolapi.mapper;
 
-import com.nsapi.niceschoolapi.entity.TchExamDB;
 import com.nsapi.niceschoolapi.entity.TeacherDB;
 import org.apache.ibatis.annotations.Mapper;
 
