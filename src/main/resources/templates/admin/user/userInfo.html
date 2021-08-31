@@ -54,7 +54,7 @@
     </div>
     <div class="user_right">
         <input type="hidden"  name="icon"  th:value="${userinfo.icon}" >
-        <button type="button" class="layui-btn layui-btn-normal" id="updateFace"><i class="layui-icon"></i>来来来，换个脸怎么样</button>
+        <button type="button" class="layui-btn layui-btn-normal" id="updateFace"><i class="layui-icon"></i>更换头像</button>
         <img th:src="(${#strings.isEmpty(userinfo.icon)}) ? ${session.icon} : ${userinfo.icon}" class="layui-circle" th:id="userFace">
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">

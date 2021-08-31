@@ -17,12 +17,6 @@
     <update id="deleteStuExam" parameterType="String">
       update stu_exam set is_del=1 where sid=(select sid from student where stuid = #{stuid})
     </update>
-
-    <!-- 删除教评记录表信息 -->
-    <update id="deleteEvaluateRecord" parameterType="String">
-      update evaluate_record set is_del=1 where stuid = #{stuid}
-    </update>
-
     <!-- 班级表人数-1 -->
     <update id="deleteClassinfo" parameterType="String">
       update classinfo set ccount=ccount-1 where classid = (select classid from student where stuid = #{stuid})
@@ -59,11 +53,6 @@
     <update id="deleteTchExam" parameterType="int">
       update tch_exam set is_del=1 where tid=#{tid}
     </update>
-    <!-- 删除教评记录信息 -->
-    <update id="deleteTeaRecord" parameterType="int">
-      update evaluate_record set is_del=1 where tchid=(select tchid from teacher where tid = #{tid})
-    </update>
-
     <!-- 改用户登录状态改为（1）锁定状态 -->
     <update id="deleteUser" parameterType="String">
       update sys_user set locked = 1 where login_name=#{login_name}
