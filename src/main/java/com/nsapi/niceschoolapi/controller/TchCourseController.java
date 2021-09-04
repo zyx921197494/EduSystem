@@ -134,7 +134,6 @@ public class TchCourseController extends BaseController {
     /**
      * 添加教师授课表记录并返回新数据id
      */
-
     @RequestMapping("addonetchcourse")
     @ResponseBody
     public Object addOneTchCourse(TchCourseVO tchCourseVO){
@@ -149,11 +148,7 @@ public class TchCourseController extends BaseController {
                 int r = tchCourseService.addOneTchCourse(tchCourseVO);
                 if(r>0){
                     int r2 = tchCourseService.addOneTchClass(tchCourseVO);
-                    if(r2>0){
-                        return true;
-                    }else{
-                        return false;
-                    }
+                    return r2 > 0;
                 }else{
                     return false;
                 }
@@ -188,12 +183,7 @@ public class TchCourseController extends BaseController {
     @ResponseBody
     public Object delTchCourse(TchCourseVO tchCourseVO){
         int flag = tchCourseService.delTchCourse(tchCourseVO);
-        if(flag>0){
-            return true;
-        }else {
-            return false;
-        }
-
+        return flag > 0;
     }
 
 }
